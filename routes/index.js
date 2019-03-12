@@ -1,21 +1,21 @@
 var express = require('express');
 var router = express.Router();
-var mysql  = require('mysql');
+var mariadb  = require('mariadb/callback');
 
 const SERVER_HOST = 'localhost'; 
 const MYSQL_PORT = 3306; // DB SERVER PORT 
 
 var configuration = {
   host: SERVER_HOST,
-  user: 'root',
+  user: 'memeoo',
   password: 'shsbsy70',
   port: MYSQL_PORT,
-  database: 'tossup_prv'
+  database: 'tossup_prov'
 };
 
 class DB {
   constructor(config) {
-      this.connection = mysql.createConnection(config);
+      this.connection = mariadb.createConnection(config);
   }
 
   query(sql, args) {
@@ -49,13 +49,17 @@ router.get('/login', function(req, res, next) {
   console.log(" try login !!!!");
   let id = req.query.id;
   let pass = req.query.pass;
-  let loginQuery = "select count(mail) from provider where ?";
+  let loginQuery = "select mail from provider where ?";
   let loginInfo = {
-      id : id,
+      userId : id,
       password: pass
   };
+
   database.query(loginQuery, loginInfo).then(result =>{
     console.log(" result => ", result);
+    if(result.length == 0){
+      console.log(" 아이디와 비밀번호를 다시 확인해 주세요 ");
+    }
   }).catch(reject =>{
     console.log(" reject => ", reject);
   });
@@ -68,6 +72,7 @@ router.get('/login', function(req, res, next) {
 router.get('/signup', function(req, res, next) {
     let database = new DB(configuration);
     console.log(" try sign up !!!!");
+    console.log(" req => ", req);
     // res.render('index', { title: 'Express' });
   });
  
