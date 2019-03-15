@@ -59,6 +59,7 @@ router.get('/login', function(req, res, next) {
     console.log(" result => ", result);
     if(result.length == 0){
       console.log(" 아이디와 비밀번호를 다시 확인해 주세요 ");
+      res.send("login fail");
     }
   }).catch(reject =>{
     console.log(" reject => ", reject);
@@ -69,11 +70,29 @@ router.get('/login', function(req, res, next) {
   // res.render('index', { title: 'Express' });
 });
 
-router.get('/signup', function(req, res, next) {
+router.post('/signup', function(req, res, next) {
     let database = new DB(configuration);
     console.log(" try sign up !!!!");
-    console.log(" req => ", req);
-    // res.render('index', { title: 'Express' });
+    console.log(" req => ", req.body);
+    console.log(" req => ", req.body.id);
+    console.log(" req => ", req.body.pass);
+
+    let data = {
+      'userId':req.body.id,
+      'password': req.body.pass,
+      'name': req.body.name,
+      'mail': req.body.smail,
+    };
+
+    // let insertQuery = "INSERT INTO provider set ?";
+    let insertQuery = "INSERT INTO provider (userId, password, name, mail) VALUES ('"+data.userId+"','"+data.password+"','"+data.name+"','"+data.mail+"')";
+    database.query(insertQuery).then(rows =>{
+      console.log(" rows => ", rows);
+      res.send("Insert Succeed!");
+    }, err =>{
+      console.log(" err => ", err);
+    });
+
   });
  
 module.exports = router;
