@@ -49,13 +49,13 @@ router.get('/login', function(req, res, next) {
   console.log(" try login !!!!");
   let id = req.query.id;
   let pass = req.query.pass;
-  let loginQuery = "select mail from provider where ?";
+  let loginQuery = "select mail from provider where userId='"+id+"' and password='"+pass+"'";
   let loginInfo = {
       userId : id,
       password: pass
   };
 
-  database.query(loginQuery, loginInfo).then(result =>{
+  database.query(loginQuery).then(result =>{
     console.log(" result => ", result);
     if(result.length == 0){
       console.log(" 아이디와 비밀번호를 다시 확인해 주세요 ");
