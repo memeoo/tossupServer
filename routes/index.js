@@ -59,7 +59,11 @@ router.get('/login', function(req, res, next) {
     console.log(" result => ", result);
     if(result.length == 0){
       console.log(" 아이디와 비밀번호를 다시 확인해 주세요 ");
-      res.send("login fail");
+      res.sendStatus(403);
+      
+    }else{
+      console.log(" @@@@@ ")
+      res.sendStatus(200);
     }
   }).catch(reject =>{
     console.log(" reject => ", reject);
