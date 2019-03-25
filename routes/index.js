@@ -49,7 +49,7 @@ router.get('/login', function(req, res, next) {
   console.log(" try login !!!!");
   let id = req.query.id;
   let pass = req.query.pass;
-  let loginQuery = "select mail from provider where userId='"+id+"' and password='"+pass+"'";
+  let loginQuery = "select mail, name from provider where userId='"+id+"' and password='"+pass+"'";
   let loginInfo = {
       userId : id,
       password: pass
@@ -63,7 +63,7 @@ router.get('/login', function(req, res, next) {
       
     }else{
       console.log(" @@@@@ ")
-      res.sendStatus(200);
+      res.send(200, result);
     }
   }).catch(reject =>{
     console.log(" reject => ", reject);
