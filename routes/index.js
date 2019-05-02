@@ -98,5 +98,29 @@ router.post('/signup', function(req, res, next) {
     });
 
   });
+
+  router.post('/saveExam', function(req, res, next) {
+    let database = new DB(configuration);
+    console.log(" Save Exam !!");
+    console.log(" req => ", req.body);
+
+
+    let data = {
+      'ques1':req.body.ques1,
+      'ques2': req.body.ques2,
+      'ques11': req.body.ques11,
+      'provId': req.body.provId,
+    };
+
+    // let insertQuery = "INSERT INTO provider set ?";
+    let insertQuery = "INSERT INTO exam (ques1, ques2, ques11, provId) VALUES ('"+data.userId+"','"+data.password+"','"+data.name+"','"+data.mail+"')";
+    database.query(insertQuery).then(rows =>{
+      console.log(" rows => ", rows);
+      res.send("Insert Succeed!");
+    }, err =>{
+      console.log(" err => ", err);
+    });
+
+  });
  
 module.exports = router;
