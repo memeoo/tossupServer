@@ -117,35 +117,11 @@ router.post('/signup', function(req, res, next) {
     };
 
     // let insertQuery = "INSERT INTO provider set ?";
-    let insertQuery = "INSERT INTO exam (ques1, ques2, ques11, provId) VALUES ('"+data.userId+"','"+data.password+"','"+data.name+"','"+data.mail+"')";
+    let insertQuery = "INSERT INTO exam (ques1, ques2, ques11, provId) VALUES ('"+data.ques1+"','"+data.ques2+"','"+data.ques11+"','"+data.provId+"')";
 
     console.log(" try sign up !!!!");
     console.log(" req => ", req.body);
-    // console.log(" req => ", req.body.id);
-    // console.log(" req => ", req.body.pass);
 
-    let data = {
-      'q1':req.body.ques1Txt,
-      'q2': req.body.ques2Txt,
-      'q3img': req.body.ques3Img,
-      'q4': req.body.ques4aud,
-      'q5': req.body.ques5aud,
-      'q6': req.body.ques6aud,
-      'part4img': req.body.part4Img,
-      'q7': req.body.ques7aud,
-      'q8': req.body.ques8aud,
-      'q9': req.body.ques9aud,
-      'q10': req.body.ques10aud,
-      'q11': req.body.ques11Txt,
-      'provId': provId,
-    };
-
-    // let insertQuery = "INSERT INTO provider set ?";
-    let insertQuery = "INSERT INTO exam (q1, q2, q3img, q4, q5, q6, part4img, q7, q8, q9, q10, q11, provId) VALUES "+ 
-     "('"+data.q1+"','"+data.q2+"','"+data.q3img+"','"+data.q4+"','"+data.q5+"','"+data.q6+"','"+data.part4img+",'"+data.q7+"' "+
-     ",'"+data.q8+"','"+data.q9+",'"+data.q10+"','"+data.q11+"','"+data.q4+"','"+data.provId+"')";
-
->>>>>>> f6de8dceae162c58808843c9f3482d2e152bd7dd
     database.query(insertQuery).then(rows =>{
       console.log(" rows => ", rows);
       res.send("Insert Succeed!");
